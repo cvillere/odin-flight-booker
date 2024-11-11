@@ -8,7 +8,7 @@
       <%= form.select :arrival_airport_id, Airport.order(:airport_code).map { |airport| [airport.airport_code] } %>
     </li>
     <li>
-      <%= select_tag "flight_date", options_for_select(Flight.start_formatted) %>
+      <%= select_tag(:start, options_for_select(@flight_options)) %>
     </li>
     <li>
       <%= form.submit "Search Flights" %>
@@ -16,3 +16,6 @@
 
   </ul>
 <% end %>
+
+<%# <%= form.date_select :start, prompt: { year: 'Select year', month: 'Select month', day: 'Select day' } %>
+<%# <%= select_tag "flight_date", options_from_collection_for_select(Flight.start_formatted, 'flight_date', :start_formatted)> %>
