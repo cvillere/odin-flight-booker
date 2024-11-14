@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "flights#index"
 
-  resources :flights
+  resources :flights do 
+    get '/flights', to: 'flights#flight_options'
+  end
 
 end
