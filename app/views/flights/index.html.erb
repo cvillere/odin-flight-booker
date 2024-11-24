@@ -8,6 +8,9 @@
       <%= form.select :arrival_airport_id, Airport.order(:airport_code).map { |airport| [airport.airport_code] } %>
     </li>
     <li>
+      <%= form.select :num_passengers, (1..10).to_a.map { |n| [pluralize(n, 'Passenger'), n] }, prompt: "Select Number of Passengers" %>
+    </li>
+    <li>
       <%= select_tag(:start, options_for_select(@flight_options)) %>
     </li>
     <li>
@@ -16,6 +19,16 @@
 
   </ul>
 <% end %>
+
+  <div class="results_section">
+  <% @flights.each do |flight| %>
+    <ul>
+      <li>
+        <%= "#{flight.departure_airport_id} :: #{flight.arrival_airport_id} :: #{flight.start}" %>
+      </li>
+    </ul>
+  <% end %>
+  </div>
 
 <%# <%= form.date_select :start, prompt: { year: 'Select year', month: 'Select month', day: 'Select day' } %>
 <%# <%= select_tag "flight_date", options_from_collection_for_select(Flight.start_formatted, 'flight_date', :start_formatted)> %>

@@ -6,4 +6,8 @@ class Flight < ApplicationRecord
     all.map { |flight| [flight.start.strftime("%m/%d/%Y"), flight.id] }
   end
 
+  scope :results, -> (departure_airport, arrival_airport, start) {
+    where("departure_airport_id = ? AND arrival_airport_id = ? AND start = ?", departure_airport, arrival_airport, start)
+  }
+
 end

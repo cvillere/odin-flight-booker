@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+ .results_section {
+
+  min-height: 200px;
+  min-width: 50%;
+  
+ }
