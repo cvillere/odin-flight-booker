@@ -14,21 +14,20 @@
       <%= select_tag(:start, options_for_select(@flight_options)) %>
     </li>
     <li>
-      <%= form.submit "Search Flights" %>
+      <%= form.submit "SEARCH Flights" %>
     </li>
 
   </ul>
+    
+  
+    <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id  %>
+    <li>
+      <%= form.submit "SELECT Flights" %>
+    </li>
+
 <% end %>
 
-  <div class="results_section">
-  <% @flights.each do |flight| %>
-    <ul>
-      <li>
-        <%= "#{flight.departure_airport_id} :: #{flight.arrival_airport_id} :: #{flight.start}" %>
-      </li>
-    </ul>
-  <% end %>
-  </div>
 
+<%# <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id %>
 <%# <%= form.date_select :start, prompt: { year: 'Select year', month: 'Select month', day: 'Select day' } %>
 <%# <%= select_tag "flight_date", options_from_collection_for_select(Flight.start_formatted, 'flight_date', :start_formatted)> %>
