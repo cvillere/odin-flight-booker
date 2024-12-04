@@ -7,7 +7,7 @@ class Flight < ApplicationRecord
   end
 
   scope :results, ->(departure_airport, arrival_airport, start) {
-    where("departure_airport_id = ? AND arrival_airport_id = ? AND start = ?", departure_airport, arrival_airport, start)
+    where("departure_airport_id = ? AND arrival_airport_id = ? AND start BETWEEN ? AND ?", departure_airport, arrival_airport, start.begin, start.end)
   }
 
 end

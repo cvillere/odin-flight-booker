@@ -3,16 +3,16 @@ class FlightsController < ApplicationController
   before_action :flight_options, only: [:index]
 
   def flight_options
-    @flight_options = Flight.all.map { |u| [u.start.strftime("%m/%d/%Y"), u.start] } 
+    @flight_options = Flight.all.map { |u| [u.start.strftime("%m/%d/%Y"), u.start] }
   end
 
   def index
+    @airports = Airport.all
     #formatted_start = DateTime.parse(params[:start])
     @num_passengers = params[:num_passengers].to_i
-    @flights = Flight.results(params[:departure_airport_id], params[:arrival_airport_id], params[:start]).all
-    # @departure_airport = params[:departure_airport_id]
-    # @arrival_airport = params[:arrival_airport_id]
-    # @start = params[:start]
+    date = Date.parse(params[:start])
+    time_range = date.beginning_of_day..date.end_of_day
+    @flights = Flight.results(params[:departure_airport_id], params[:arrival_airport_id], time_range).all
     @num_passengers = params[:num_passengers].to_i
     #puts @flights.formatted_start
 
