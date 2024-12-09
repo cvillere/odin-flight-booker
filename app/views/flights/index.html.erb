@@ -11,22 +11,35 @@
       <%= form.select :num_passengers, (1..10).to_a.map { |n| [pluralize(n, 'Passenger'), n] }, prompt: "Select Number of Passengers" %>
     </li>
     <li>
-      <%= select_tag(:start, options_for_select(@flight_options)) %>
+      <%= form.date_field :start, min: Date.tomorrow %>
     </li>
     <li>
       <%= form.submit "SEARCH Flights" %>
     </li>
-
-  </ul>
-    
   
-    <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id  %>
-    <li>
-      <%= form.submit "SELECT Flights" %>
-    </li>
+  <%= form_with url: new_booking_path, method: :get, local: true do |form| %>
+    <%= form.hidden_field :num_passengers, value: params[:num_passengers] %>
+
+    </ul>
+      <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id do |button| %>
+
+      <li>
+        <%= button.radio_button %>
+        <%= button.text %>
+        - Departure: <%= button.object.departure_airport.airport_code %>
+        - Arrival: <%= button.object.arrival_airport.airport_code %>
+        - Start Time: <%= button.object.start.strftime("%m/%d/%Y %I:%M %p")%>
+      </li>
+
+      <li>
+        <%= form.submit "SELECT Flights" %>
+      </li>
+
+    <% end %>
 
 <% end %>
 
+<%# <%= select_tag(:start, options_for_select(@flight_options)) %>
 <%# <%= form.select :departure_airport_id, Airport.order(:airport_code).map { |airport| [airport.airport_code] } %>
 <%# <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id %>
 <%# <%= form.date_select :start, prompt: { year: 'Select year', month: 'Select month', day: 'Select day' } %>
