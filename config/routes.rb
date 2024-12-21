@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     get '/flights', to: 'flights#flight_options'
   end
 
+  resources :bookings, only: [:new]
+
 end

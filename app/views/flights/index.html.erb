@@ -16,11 +16,13 @@
     <li>
       <%= form.submit "SEARCH Flights" %>
     </li>
+  </ul>
+<% end %>
   
   <%= form_with url: new_booking_path, method: :get, local: true do |form| %>
     <%= form.hidden_field :num_passengers, value: params[:num_passengers] %>
 
-    </ul>
+    <ul>
       <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id do |button| %>
 
       <li>
@@ -31,9 +33,23 @@
         - Start Time: <%= button.object.start.strftime("%m/%d/%Y %I:%M %p")%>
       </li>
 
+      <% end %>
+
       <li>
         <%= form.submit "SELECT Flights" %>
       </li>
+    </ul>
+
+      <%= form.fields_for :passengers do |passenger_form| %>
+        <div>
+          <%= passenger_form.label :name, "Passenger Name" %>
+          <%= passenger_form.text_field :name %>
+        </div>
+
+        <div>
+          <%= passenger_form.label :email, "Passenger Email" %>
+          <%= passenger_form.email_field :email %>
+        </div>
 
     <% end %>
 

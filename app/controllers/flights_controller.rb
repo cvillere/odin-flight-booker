@@ -7,6 +7,7 @@ class FlightsController < ApplicationController
   end
 
   def index
+    @flights = Flight.all
     @airports = Airport.all
     @num_passengers = params[:num_passengers].to_i
     date = Date.parse(params[:start])
