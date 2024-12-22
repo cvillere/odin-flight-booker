@@ -1,0 +1,17 @@
+<% if @flight_id.present? %>
+    <% @num_passengers.times do |passenger| %>
+      <%= form.fields_for :passengers, @booking.passengers[passenger] do |passenger_form| %>
+        <div>
+          <%= passenger_form.label :name, "Passenger Name" %>
+          <%= passenger_form.text_field :name %>
+        </div>
+
+        <div>
+          <%= passenger_form.label :email, "Passenger Email" %>
+          <%= passenger_form.email_field :email %>
+        </div>
+
+      <% end %>
+    <% end %>
+    <%= form.submit "Create Booking" %>
+  <% end%>

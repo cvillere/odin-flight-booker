@@ -33,27 +33,16 @@
         - Start Time: <%= button.object.start.strftime("%m/%d/%Y %I:%M %p")%>
       </li>
 
-      <% end %>
-
       <li>
         <%= form.submit "SELECT Flights" %>
       </li>
+      <% end %>
     </ul>
 
-      <%= form.fields_for :passengers do |passenger_form| %>
-        <div>
-          <%= passenger_form.label :name, "Passenger Name" %>
-          <%= passenger_form.text_field :name %>
-        </div>
-
-        <div>
-          <%= passenger_form.label :email, "Passenger Email" %>
-          <%= passenger_form.email_field :email %>
-        </div>
-
-    <% end %>
-
+  <%= render partial: 'bookings/passenger_form', locals: { flight_id: @flight_id, num_passengers: @num_passengers, booking: @booking, form: form } %>
 <% end %>
+
+
 
 <%# <%= select_tag(:start, options_for_select(@flight_options)) %>
 <%# <%= form.select :departure_airport_id, Airport.order(:airport_code).map { |airport| [airport.airport_code] } %>
