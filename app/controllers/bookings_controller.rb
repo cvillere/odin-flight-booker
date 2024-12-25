@@ -1,13 +1,9 @@
 class BookingsController < ApplicationController
 
   def new
-    @num_passengers = params[:num_passengers].to_i
-    @flight_id = params[:flight_id]
-    @booking = Booking.new
-    
-  end
-
-  def create
+    #@num_passengers = params[:num_passengers].to_i
+    #@flight_id = params[:flight_id]
+    #@booking = Booking.new
 
     @booking = Booking.new(booking_params)
 
@@ -17,7 +13,7 @@ class BookingsController < ApplicationController
       flash.now[:alert] = "There was an error creating your booking."
       render status: :unprocessable_entity
     end
-
+    
   end
 
   private
