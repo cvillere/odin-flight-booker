@@ -24,7 +24,6 @@
 
     <ul>
       <%= form.collection_radio_buttons :flight_id, @flights, :id, :departure_airport_id do |button| %>
-
         <li>
           <%= button.radio_button %>
           <%= button.text %>
@@ -39,30 +38,7 @@
     </ul>
   <% end %>
 
-  <%= form_with url: bookings_path, method: :get, local: true do |form| %>
-    <% if @flight_id.present? %> 
-      <%= @flights.id %>
-      <%= @flights.departure_airport.airport_code %>
-      <%= @flights.arrival_airport.airport_code %>
-      <%= @flights.start.strftime("%m/%d/%Y %I:%M %p") %>
-        <%= params[:num_passengers].times do |passenger| %>
-          <%= passenger.fields_for :passengers, @booking.passengers[passenger] do |passenger_form| %>
-            <div>
-              <%= passenger_form.label :name, "Passenger Name" %>
-              <%= passenger_form.text_field :name %>
-            </div>
-
-            <div>
-              <%= passenger_form.label :email, "Passenger Email" %>
-              <%= passenger_form.email_field :email %>
-            </div>
-
-          <% end %>
-        <% end %>
-      <%= form.submit "Create Booking" %>
-    <% end%>
-  <% end %>
-
+  
 
 
 
