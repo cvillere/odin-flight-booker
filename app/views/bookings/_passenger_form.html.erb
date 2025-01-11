@@ -1,28 +1,25 @@
-<%= form_with url: bookings_path, method: :get, local: true do |form| %>
+<%= form_with model: @booking, url: bookings_path, method: :post, local: true do |form| %>
     <% if @flight_id.present? %> 
         <%= params[:flight_id] %>
         <%= @flights.departure_airport.airport_code %>
         <%= @flights.arrival_airport.airport_code %>
         <%= @flights.start.strftime("%m/%d/%Y %I:%M %p") %>
         <% @num_passengers.to_i.times do |i| %>
-        <div>
-          <h3>Passenger <%= i + 1 %></h3>
+          <%= fields_for :passengers, @booking.passengers do |passenger_form| %> 
           <div>
-            <%= form.label :name, "Passenger Name" %>
-            <%= form.text_field :name %>
-          </div>
+            <h3>Passenger <%= i + 1 %></h3>
+            <div>
+              <%= passenger_form.label :name, "Passenger Name" %>
+              <%= passenger_form.text_field :name %>
+            </div>
 
-          <div>
-            <%= form.label :email, "Passenger Email" %>
-            <%= form.text_field :email %> 
+            <div>
+              <%= passenger_form.label :email, "Passenger Email" %>
+              <%= passenger_form.text_field :email %> 
+            </div>
           </div>
-        </div>
+          <% end %>
         <% end %>
-    <% end %>
-    <%= fields_for :passengers, @booking.passengers do |passenger_form| %>
-        <%if true %>
-          I love you
-        <% end %>
-        <%= passenger_form.submit "Create Booking" %>
-    <% end%>
+      <% end %>
+  <%= form.submit "Create Booking" %>
 <% end %>
