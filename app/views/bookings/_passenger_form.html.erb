@@ -1,11 +1,12 @@
 <%= form_with model: @booking, url: bookings_path, method: :post, local: true do |form| %>
+  <%= form.hidden_field :flight_id, value: params[:flight_id] %>
     <% if @flight_id.present? %> 
         <%= params[:flight_id] %>
         <%= @flights.departure_airport.airport_code %>
         <%= @flights.arrival_airport.airport_code %>
         <%= @flights.start.strftime("%m/%d/%Y %I:%M %p") %>
         <% @num_passengers.to_i.times do |i| %>
-          <%= fields_for :passengers, @booking.passengers do |passenger_form| %> 
+          <%= fields_for :passengers do |passenger_form| %> 
           <div>
             <h3>Passenger <%= i + 1 %></h3>
             <div>
