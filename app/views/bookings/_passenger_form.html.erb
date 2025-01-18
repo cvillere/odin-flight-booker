@@ -5,10 +5,8 @@
         <%= @flights.departure_airport.airport_code %>
         <%= @flights.arrival_airport.airport_code %>
         <%= @flights.start.strftime("%m/%d/%Y %I:%M %p") %>
-        <% @num_passengers.to_i.times do |i| %>
-          <%= fields_for :passengers, @booking.passengers do |passenger_form| %> 
+          <%= form.fields_for :passengers, @booking.passengers do |passenger_form| %> 
           <div>
-            <h3>Passenger <%= i + 1 %></h3>
             <div>
               <%= passenger_form.label :name, "Passenger Name" %>
               <%= passenger_form.text_field :name %>
@@ -19,7 +17,6 @@
               <%= passenger_form.text_field :email %> 
             </div>
           </div>
-          <% end %>
         <% end %>
       <% end %>
   <%= form.submit "Create Booking" %>
