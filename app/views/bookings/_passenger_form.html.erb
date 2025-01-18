@@ -6,7 +6,7 @@
         <%= @flights.arrival_airport.airport_code %>
         <%= @flights.start.strftime("%m/%d/%Y %I:%M %p") %>
         <% @num_passengers.to_i.times do |i| %>
-          <%= fields_for :passengers do |passenger_form| %> 
+          <%= fields_for :passengers, @booking.passengers do |passenger_form| %> 
           <div>
             <h3>Passenger <%= i + 1 %></h3>
             <div>

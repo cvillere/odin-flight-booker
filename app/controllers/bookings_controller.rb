@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
     @flight_id = params[:flight_id]
     @flights = Flight.find(@flight_id)
     @num_passengers = params[:num_passengers].to_i
-    #@booking = Booking.new
+    @booking = Booking.new
     #@num_passengers.times { @booking.passengers.build } if @num_passengers > 0
     
   end
@@ -16,8 +16,8 @@ class BookingsController < ApplicationController
     #@booking = Booking.new(booking_params)
     #byebug
     @num_passengers = params[:num_passengers].to_i
-    @booking = Booking.new(booking_params)
-    @num_passengers.times { @booking.passengers.build(booking_params) } if @num_passengers > 0
+    #@booking = Booking.new
+    @booking = @booking.passengers.build(booking_params)
 
     if @booking.save
       redirect_to flights_path, notice: "Successfully selected flight"
