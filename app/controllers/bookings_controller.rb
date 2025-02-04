@@ -1,27 +1,20 @@
 class BookingsController < ApplicationController
 
-  @booking = Booking.new
-
   def new
 
-    @flight_id = params[:flight_id]
-    @flights = Flight.find(@flight_id)
+    @flight = Flight.find(params[:flight_id])
     @num_passengers = params[:num_passengers].to_i
-    @booking = Booking.new
-    @num_passengers.times { @booking.passengers.build } if @num_passengers > 0
+    @booking = Booking.new(flight_id: @flight)
+    @num_passengers.times { @booking.passengers.build }
     
   end
 
   def create
 
-    #@flight_id = params[:flight_id]
-    #@flights = Flight.find(params[:flight_id])
-    #@num_passengers = params[:num_passengers].to_i
-    #@booking = Booking.new
     @booking = Booking.new(booking_params)
 
     if @booking.save
-      redirect_to flights_path, notice: "Successfully selected flight"
+      redirect_to booking_path(@booking)
     else
       puts @booking.errors.full_messages
       flash.now[:alert] = "There was an error selecting your flight."
@@ -29,6 +22,11 @@ class BookingsController < ApplicationController
     end
 
   end
+
+  def show
+    @booking = Booking.find(params[:id])
+  end
+
   private
 
   def booking_params
